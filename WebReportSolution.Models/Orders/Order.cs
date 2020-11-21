@@ -14,7 +14,7 @@ namespace WebReportSolution.Entities.Orders
 
         [Required]
         [Column("Price")]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         [Column("Date")]

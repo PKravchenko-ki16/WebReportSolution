@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebReportSolution.BusinessLayer;
+using WebReportSolution.Entities.Orders;
 using WebReportSolution.ViewModels.Orders;
 
 namespace WebReportSolution.ClientMVC.Controllers
@@ -35,6 +36,46 @@ namespace WebReportSolution.ClientMVC.Controllers
             var filmModel = _operationOrders.GetByIdOrderAsync(id).Result;
             var model = _mapper.Map<OrderViewModel>(filmModel);
             return View(model);
+        }
+
+        public IActionResult RemoveOrder(Guid id)
+        {
+            _operationOrders.DeleteOrder(id);
+            return RedirectToAction("GetOrders", "Order");
+        }
+
+        public IActionResult ModificationOrder(Guid id = default)
+        {
+            if (id == default)
+            {
+                return View();
+            }
+            var orderModel = _operationOrders.GetByIdOrderAsync(id).Result;
+            var model = _mapper.Map<ModificationOrderViewModel>(orderModel);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ModificationOrder(ModificationOrderViewModel orderViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (orderViewModel.Id == default)
+                {
+                    var film = _mapper.Map<Order>(orderViewModel);
+
+                    _operationOrders.CreateOrder(film);
+
+                    return RedirectToAction("GetOrders", "Order");
+                }
+                else
+                {
+                    var orderModel = _mapper.Map<Order>(orderViewModel);
+                    _operationOrders.UpdateOrder(orderModel);
+                    return RedirectToAction("GetOrderById", "Order", new { id = orderModel.Id });
+                }
+            }
+            return View(orderViewModel);
         }
     }
 }

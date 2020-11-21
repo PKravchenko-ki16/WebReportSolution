@@ -10,6 +10,10 @@ namespace WebReportSolution.ClientMVC.Mappings
         {
             CreateMap<Order, OrderViewModel>()
             .ForMember("Date", opt => opt.MapFrom(c => c.Date.ToShortDateString()));
+
+            CreateMap<Order, ModificationOrderViewModel>();
+
+            CreateMap<ModificationOrderViewModel, Order>();
         }
     }
 }

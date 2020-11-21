@@ -1,5 +1,6 @@
 ﻿@using WebReportSolution.ViewModels.Orders;
 @model OrderViewModel
+
 <h1>Current Order</h1>
 <hr>
 
@@ -9,4 +10,8 @@
         <li class="list-group-item">Price: @Model.Price</li>
         <li class="list-group-item">Date: @Model.Date</li>
     </ul>
+    <div class="card-body">
+        <a class="card-link" asp-controller="Order" asp-action="ModificationOrder" asp-route-id="@Model.Id">Edit</a>
+        <a class="card-link" asp-controller="Order" asp-action="RemoveOrder" asp-route-id="@Model.Id">Remove</a>
+    </div>
 </div>

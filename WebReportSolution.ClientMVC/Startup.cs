@@ -48,8 +48,21 @@ namespace WebReportSolution.ClientMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Create",
+                    pattern: "{controller=Order}/create",
+                    defaults: new { controller = "Order", action = "ModificationOrder" }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "Edit",
+                    pattern: "{controller=Order}/edit/{id}",
+                    defaults: new { controller = "Order", action = "ModificationOrder" }
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Order}/{action=GetOrders}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
