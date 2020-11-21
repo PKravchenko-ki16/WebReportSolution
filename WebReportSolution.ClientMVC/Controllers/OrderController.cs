@@ -66,8 +66,12 @@ namespace WebReportSolution.ClientMVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetOrders(bool isNotFound = false)
         {
+            if (isNotFound)
+            {
+                ViewBag.Notification = "Order not found";
+            }
             var ordersModel = await _operationOrders.GetAllOrdersAsync();
             if (ordersModel != null)
             {
@@ -79,15 +83,30 @@ namespace WebReportSolution.ClientMVC.Controllers
 
         public IActionResult GetOrderById(Guid id)
         {
-            var filmModel = _operationOrders.GetByIdOrderAsync(id).Result;
-            var model = _mapper.Map<OrderViewModel>(filmModel);
-            return View(model);
+            try
+            {
+                var filmModel = _operationOrders.GetByIdOrderAsync(id).Result;
+                var model = _mapper.Map<OrderViewModel>(filmModel);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("GetOrders", "Order", new { isNotFound = true });
+            }
+
         }
 
         public IActionResult RemoveOrder(Guid id)
         {
-            _operationOrders.DeleteOrder(id);
-            return RedirectToAction("GetOrders", "Order");
+            try
+            {
+                _operationOrders.DeleteOrder(id);
+                return RedirectToAction("GetOrders", "Order");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("GetOrders", "Order", new { isNotFound = true });
+            }
         }
 
         public IActionResult ModificationOrder(Guid id = default)

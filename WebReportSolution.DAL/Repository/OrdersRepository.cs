@@ -29,7 +29,9 @@ namespace WebReportSolution.DAL.Repository
 
         public async Task<Order> GetByIdAsync(Guid id)
         {
-            return await _context.Orders.Where(x => x.Id == id).SingleOrDefaultAsync();
+            var order = await _context.Orders.Where(x => x.Id == id).SingleOrDefaultAsync();
+            if (order == null) throw new ArgumentException(nameof(order));
+            return order;
         }
 
         public Task Create(Order order)
@@ -48,7 +50,7 @@ namespace WebReportSolution.DAL.Repository
 
         public Task Delete(Guid id)
         {
-            Order order = GetByIdAsync(id).Result;
+            Order order = GetByIdAsync(id).Result ?? throw new ArgumentException(nameof(order));
             _context.Orders.Attach(order);
             _context.Orders.Remove(order);
             Save();
