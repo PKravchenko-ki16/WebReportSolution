@@ -15,6 +15,11 @@ namespace WebReportSolution.BusinessLayer
             _repository = repository;
         }
 
+        public async Task<List<Order>> GetDataReportOrdersAsync(DateTime fromDate, DateTime toDate)
+        {
+            return await _repository.GetDataReportOrdersAsync(fromDate, toDate);
+        }
+
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
             return await _repository.GetAllAsync();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WebReportSolution.BusinessLayer;
+using WebReportSolution.ClientMVC.Infrastructure.Report;
 using WebReportSolution.DAL;
 using WebReportSolution.DAL.Repository;
 
@@ -12,6 +13,7 @@ namespace WebReportSolution.ClientMVC.Infrastructure.DependencyInjection
             services.AddTransient<ApplicationContext>();
             services.AddTransient<OrdersRepository>();
             services.AddTransient<OperationOrders>();
+            services.AddTransient<GeneratingReport>();
         }
     }
 }

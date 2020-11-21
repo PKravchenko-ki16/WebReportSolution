@@ -1,4 +1,4 @@
-namespace WebReportSolution.ViewModels.Error
+namespace WebReportSolution.Entities
 {
     public class ErrorViewModel
     {

@@ -17,6 +17,11 @@ namespace WebReportSolution.DAL.Repository
             _context = context;
         }
 
+        public async Task<List<Order>> GetDataReportOrdersAsync(DateTime fromDate, DateTime toDate)
+        {
+            return await _context.Orders.Select(x=>x).Where(x=>x.Date>=fromDate && x.Date<=toDate).ToListAsync();
+        }
+
         public async Task<IEnumerable<Order>> GetAllAsync()
         {
             return await _context.Orders.Select(x => x).ToListAsync();
