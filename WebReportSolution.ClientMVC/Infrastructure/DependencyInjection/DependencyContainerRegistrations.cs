@@ -14,6 +14,7 @@ namespace WebReportSolution.ClientMVC.Infrastructure.DependencyInjection
             services.AddTransient<OrdersRepository>();
             services.AddTransient<OperationOrders>();
             services.AddTransient<GeneratingReport>();
+            services.AddTransient<FillingOutReport>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebReportSolution.DAL.Repository;
 using WebReportSolution.Entities.Orders;
@@ -15,9 +16,14 @@ namespace WebReportSolution.BusinessLayer
             _repository = repository;
         }
 
-        public async Task<List<Order>> GetDataReportOrdersAsync(DateTime fromDate, DateTime toDate)
+        public List<IGrouping<DateTime, Order>> GetReportOrdersAsync()
         {
-            return await _repository.GetDataReportOrdersAsync(fromDate, toDate);
+            return _repository.GetReportOrdersAsync();
+        }
+
+        public List<IGrouping<DateTime, Order>> GetDataReportOrdersAsync(DateTime fromDate, DateTime toDate)
+        {
+            return _repository.GetDataReportOrdersAsync(fromDate, toDate);
         }
 
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +19,14 @@ namespace WebReportSolution.ClientMVC.Controllers
         private readonly OperationOrders _operationOrders;
         private readonly IMapper _mapper;
         private GeneratingReport _generatingReport;
+        private FillingOutReport _fillingOutReport;
 
-        public OrderController(OperationOrders operationOrders, IMapper mapper, GeneratingReport generatingReport)
+        public OrderController(OperationOrders operationOrders, IMapper mapper, GeneratingReport generatingReport, FillingOutReport fillingOutReport)
         {
             _operationOrders = operationOrders;
             _mapper = mapper;
             _generatingReport = generatingReport;
+            _fillingOutReport = fillingOutReport;
         }
 
         public IActionResult GetReport()
@@ -34,17 +35,18 @@ namespace WebReportSolution.ClientMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetReport(ReportDatesViewModels datesViewModels)
+        public IActionResult GetReport(ReportDatesViewModels datesViewModels)
         {
-            if (datesViewModels != default)
+            if (datesViewModels.FromDate != default && datesViewModels.ToDate != default)
             {
                 if (ModelState.IsValid)
                 {
-                    var ordersDateModel = await _operationOrders.GetDataReportOrdersAsync(datesViewModels.FromDate, datesViewModels.ToDate);
+                    var ordersDateModel = _operationOrders.GetDataReportOrdersAsync(datesViewModels.FromDate, datesViewModels.ToDate);
                     if (ordersDateModel.Count != 0)
                     {
-                        var model = _mapper.Map<List<OrderViewModel>>(ordersDateModel);
-                        DataTable table = model.ConvertToDataTable();
+                        var exModel = _fillingOutReport.Filling(ordersDateModel);
+
+                        DataTable table = exModel.ConvertToDataTable();
                         MemoryStream memoryStream = _generatingReport.Generating(table);
                         return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Result.xlsx");
                     }
@@ -54,11 +56,11 @@ namespace WebReportSolution.ClientMVC.Controllers
             }
 
             ModelState.Clear();
-            var ordersModel = await _operationOrders.GetAllOrdersAsync();
-            if (ordersModel.Count() != 0)
+            var ordersModel = _operationOrders.GetReportOrdersAsync();
+            if (ordersModel.Count != 0)
             {
-                var model = _mapper.Map<IEnumerable<OrderViewModel>>(ordersModel).ToList();
-                DataTable table = model.ConvertToDataTable();
+                var exModel = _fillingOutReport.Filling(ordersModel);
+                DataTable table = exModel.ConvertToDataTable();
                 MemoryStream memoryStream = _generatingReport.Generating(table);
                 return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Result.xlsx");
             }

@@ -21,6 +21,17 @@ namespace WebReportSolution.ClientMVC.Infrastructure.Report
                 IRow row = excelSheet.CreateRow(0);
                 int columnIndex = 0;
 
+                // if columns are needed in Russian, create manually
+
+                //columns.Add("Дата"); 
+                //row.CreateCell(0).SetCellValue("Дата");
+                //columns.Add("Количество заказов с суммой от 0 до 1000");
+                //row.CreateCell(1).SetCellValue("Количество заказов с суммой от 0 до 1000");
+                //columns.Add("Количество заказов с суммой от 1001 до 5000");
+                //row.CreateCell(2).SetCellValue("Количество заказов с суммой от 1001 до 5000");
+                //columns.Add("Количество заказов с суммой от 5001");
+                //row.CreateCell(3).SetCellValue("Количество заказов с суммой от 5001");
+
                 foreach (System.Data.DataColumn column in table.Columns)
                 {
                     columns.Add(column.ColumnName);
