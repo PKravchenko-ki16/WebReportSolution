@@ -12,10 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Order\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\WebReportSolution.BusinessLayer\WebReportSolution.BusinessLayer.csproj" />
     <ProjectReference Include="..\WebReportSolution.DAL\WebReportSolution.DAL.csproj" />
     <ProjectReference Include="..\WebReportSolution.ViewModels\WebReportSolution.ViewModels.csproj" />
   </ItemGroup>

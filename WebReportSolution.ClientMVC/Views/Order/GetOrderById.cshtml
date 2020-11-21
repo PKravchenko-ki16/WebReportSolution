@@ -1,0 +1,12 @@
+﻿@using WebReportSolution.ViewModels.Orders;
+@model OrderViewModel
+<h1>Current Order</h1>
+<hr>
+
+<div class="card" style="width: 30rem; margin-bottom: 30px;">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Id: @Model.Id</li>
+        <li class="list-group-item">Price: @Model.Price</li>
+        <li class="list-group-item">Date: @Model.Date</li>
+    </ul>
+</div>
