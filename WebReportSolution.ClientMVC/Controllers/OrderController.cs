@@ -85,8 +85,8 @@ namespace WebReportSolution.ClientMVC.Controllers
         {
             try
             {
-                var filmModel = _operationOrders.GetByIdOrderAsync(id).Result;
-                var model = _mapper.Map<OrderViewModel>(filmModel);
+                var orderModel = _operationOrders.GetByIdOrderAsync(id).Result;
+                var model = _mapper.Map<OrderViewModel>(orderModel);
                 return View(model);
             }
             catch (Exception e)
@@ -127,9 +127,9 @@ namespace WebReportSolution.ClientMVC.Controllers
             {
                 if (orderViewModel.Id == default)
                 {
-                    var film = _mapper.Map<Order>(orderViewModel);
+                    var orderModel = _mapper.Map<Order>(orderViewModel);
 
-                    _operationOrders.CreateOrder(film);
+                    _operationOrders.CreateOrder(orderModel);
 
                     return RedirectToAction("GetOrders", "Order");
                 }
