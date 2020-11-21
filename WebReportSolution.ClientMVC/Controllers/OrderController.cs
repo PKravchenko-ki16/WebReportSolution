@@ -36,21 +36,26 @@ namespace WebReportSolution.ClientMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> GetReport(ReportDatesViewModels datesViewModels)
         {
-            if (ModelState.IsValid)
+            if (datesViewModels != default)
             {
-               var ordersDateModel = await  _operationOrders.GetDataReportOrdersAsync(datesViewModels.FromDate, datesViewModels.ToDate);
-               if (ordersDateModel != null)
-               {
-                   var model = _mapper.Map<List<OrderViewModel>>(ordersDateModel);
-                   DataTable table = model.ConvertToDataTable();
-                   MemoryStream memoryStream = _generatingReport.Generating(table);
-                   return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Result.xlsx");
-               }
-               ViewBag.Notification = "Orders not Found";
-               return View(datesViewModels);
+                if (ModelState.IsValid)
+                {
+                    var ordersDateModel = await _operationOrders.GetDataReportOrdersAsync(datesViewModels.FromDate, datesViewModels.ToDate);
+                    if (ordersDateModel.Count != 0)
+                    {
+                        var model = _mapper.Map<List<OrderViewModel>>(ordersDateModel);
+                        DataTable table = model.ConvertToDataTable();
+                        MemoryStream memoryStream = _generatingReport.Generating(table);
+                        return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Result.xlsx");
+                    }
+                    ViewBag.Notification = "Orders not Found";
+                    return View(datesViewModels);
+                }
             }
+
+            ModelState.Clear();
             var ordersModel = await _operationOrders.GetAllOrdersAsync();
-            if (ordersModel != null)
+            if (ordersModel.Count() != 0)
             {
                 var model = _mapper.Map<IEnumerable<OrderViewModel>>(ordersModel).ToList();
                 DataTable table = model.ConvertToDataTable();
@@ -58,7 +63,7 @@ namespace WebReportSolution.ClientMVC.Controllers
                 return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Result.xlsx");
             }
             ViewBag.Notification = "Orders not Found";
-            return View(datesViewModels);
+            return View();
         }
 
         public async Task<IActionResult> GetOrders()

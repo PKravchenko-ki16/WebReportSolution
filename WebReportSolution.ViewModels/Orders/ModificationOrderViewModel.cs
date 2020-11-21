@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WebReportSolution.ViewModels.Base;
 
 namespace WebReportSolution.ViewModels.Orders
@@ -9,6 +10,7 @@ namespace WebReportSolution.ViewModels.Orders
 
         public decimal Price { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }
 }

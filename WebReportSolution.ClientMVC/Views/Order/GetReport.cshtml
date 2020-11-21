@@ -1,13 +1,17 @@
 ﻿@using WebReportSolution.ViewModels.Report;
 @model ReportDatesViewModels;
 
-<h1>Create film</h1>
+<h1>Get report orders</h1>
 <hr />
+
+@if (ViewBag.Notification != null)
+{
+    <h3 style="color: red">@ViewBag.Notification</h3>
+}
 
 @using (Html.BeginForm("GetReport", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
 
     <div class="form-group">
         @Html.LabelFor(m => m.FromDate, new { @class = "col-md-2 control-label" })
