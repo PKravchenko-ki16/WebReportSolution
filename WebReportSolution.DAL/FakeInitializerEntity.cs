@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebReportSolution.Models.Orders;
+using WebReportSolution.Entities.Orders;
 
 namespace WebReportSolution.DAL
 {

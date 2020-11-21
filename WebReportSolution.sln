@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReportSolution.BusinessL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReportSolution.DAL", "WebReportSolution.DAL\WebReportSolution.DAL.csproj", "{D735253A-71C0-4D75-8076-6F604D5AD8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReportSolution.Models", "WebReportSolution.Models\WebReportSolution.Models.csproj", "{214AD9D4-6C39-446E-A0C7-C103AB4747F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReportSolution.Entities", "WebReportSolution.Models\WebReportSolution.Entities.csproj", "{214AD9D4-6C39-446E-A0C7-C103AB4747F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReportSolution.ViewModels", "WebReportSolution.ViewModels\WebReportSolution.ViewModels.csproj", "{84FEA19B-60E9-4D7A-BBF2-8EC8CA00D5E3}"
 EndProject

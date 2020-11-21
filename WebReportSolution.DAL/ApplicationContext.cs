@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebReportSolution.Models.Orders;
+using WebReportSolution.Entities.Orders;
 
 namespace WebReportSolution.DAL
 {

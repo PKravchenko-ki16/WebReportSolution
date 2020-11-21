@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebReportSolution.Models.Base;
+using WebReportSolution.Entities.Base;
 
-namespace WebReportSolution.Models.Interfaces
+namespace WebReportSolution.Entities.Interfaces
 {
     public interface IRepository<T>
         where T : DomainObject, new()

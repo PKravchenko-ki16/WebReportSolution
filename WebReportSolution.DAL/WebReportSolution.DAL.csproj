@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebReportSolution.Models\WebReportSolution.Models.csproj" />
+    <ProjectReference Include="..\WebReportSolution.Models\WebReportSolution.Entities.csproj" />
   </ItemGroup>
 
 </Project>

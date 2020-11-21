@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WebReportSolution.Models.Interfaces;
-using WebReportSolution.Models.Orders;
+using WebReportSolution.Entities.Interfaces;
+using WebReportSolution.Entities.Orders;
 
 namespace WebReportSolution.DAL.Repository
 {

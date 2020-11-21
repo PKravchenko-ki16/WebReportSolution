@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,17 +21,20 @@ namespace WebReportSolution.ClientMVC
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddAutoMapper(typeof(Startup));
             DependencyContainerRegistrations.Common(services);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AutoMapper.IConfigurationProvider mapper)
         {
             if (env.IsDevelopment())
             {
+                mapper.AssertConfigurationIsValid();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                mapper.CompileMappings();
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

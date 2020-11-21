@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebReportSolution.Models.Base
+namespace WebReportSolution.Entities.Base
 {
     public abstract class DomainObject
     {

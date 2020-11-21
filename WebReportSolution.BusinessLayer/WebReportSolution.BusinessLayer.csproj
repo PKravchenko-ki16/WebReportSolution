@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebReportSolution.DAL\WebReportSolution.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

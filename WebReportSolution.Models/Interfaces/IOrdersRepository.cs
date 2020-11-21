@@ -1,6 +1,6 @@
-﻿using WebReportSolution.Models.Orders;
+﻿using WebReportSolution.Entities.Orders;
 
-namespace WebReportSolution.Models.Interfaces
+namespace WebReportSolution.Entities.Interfaces
 {
     public interface IOrdersRepository : IRepository<Order>
     {

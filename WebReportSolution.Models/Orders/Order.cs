@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebReportSolution.Models.Base;
+using WebReportSolution.Entities.Base;
 
-namespace WebReportSolution.Models.Orders
+namespace WebReportSolution.Entities.Orders
 {
     [Table("Order")]
     public class Order : DomainObject
