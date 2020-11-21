@@ -13,4 +13,8 @@
     <Folder Include="Views\Order\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebReportSolution.DAL\WebReportSolution.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
