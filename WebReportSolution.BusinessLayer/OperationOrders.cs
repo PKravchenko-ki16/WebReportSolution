@@ -26,7 +26,7 @@ namespace WebReportSolution.BusinessLayer
             return _repository.GetDataReportOrdersAsync(fromDate, toDate);
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+        public async Task<List<Order>> GetAllOrdersAsync()
         {
             return await _repository.GetAllAsync();
         }
@@ -36,11 +36,11 @@ namespace WebReportSolution.BusinessLayer
             return await _repository.GetByIdAsync(id);
         }
 
-        public Task CreateOrder(Order order)
+        public async Task CreateOrder(Order order)
         {
             try
             {
-                return _repository.Create(order);
+                await _repository.Create(order);
             }
             catch (Exception e)
             {
@@ -48,15 +48,15 @@ namespace WebReportSolution.BusinessLayer
             }
             finally
             {
-                _repository.Save();
+                await _repository.Save();
             }
         }
 
-        public Task UpdateOrder(Order order)
+        public async Task UpdateOrder(Order order)
         {
             try
             {
-                return _repository.Update(order);
+                await _repository.Update(order);
             }
             catch (Exception e)
             {
@@ -64,15 +64,15 @@ namespace WebReportSolution.BusinessLayer
             }
             finally
             {
-                _repository.Save();
+                await _repository.Save();
             }
         }
 
-        public Task DeleteOrder(Guid id)
+        public async Task DeleteOrder(Guid id)
         {
             try
             {
-                return _repository.Delete(id);
+                await _repository.Delete(id);
             }
             catch (Exception e)
             {
@@ -80,7 +80,7 @@ namespace WebReportSolution.BusinessLayer
             }
             finally
             {
-                _repository.Save();
+                await _repository.Save();
             }
         }
     }

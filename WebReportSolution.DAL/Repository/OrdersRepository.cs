@@ -24,10 +24,10 @@ namespace WebReportSolution.DAL.Repository
 
         public List<IGrouping<DateTime, Order>> GetReportOrdersAsync()
         {
-            return _context.Orders.AsEnumerable().GroupBy(x => x.Date).Select(x => x).ToList();
+            return (_context.Orders.AsEnumerable() ?? throw new InvalidOperationException()).GroupBy(x => x.Date).Select(x => x).ToList();
         }
 
-        public async Task<IEnumerable<Order>> GetAllAsync()
+        public async Task<List<Order>> GetAllAsync()
         {
             return await _context.Orders.Select(x => x).ToListAsync();
         }
@@ -39,32 +39,29 @@ namespace WebReportSolution.DAL.Repository
             return order;
         }
 
-        public Task Create(Order order)
+        public async Task Create(Order order)
         {
             _context.Orders.Add(order);
-            Save();
-            return Task.CompletedTask;
+            await Save();
         }
 
-        public Task Update(Order order)
+        public async Task Update(Order order)
         {
             _context.Orders.Update(order);
-            Save();
-            return Task.CompletedTask;
+            await Save();
         }
 
-        public Task Delete(Guid id)
+        public async Task Delete(Guid id)
         {
             Order order = GetByIdAsync(id).Result ?? throw new ArgumentException(nameof(order));
             _context.Orders.Attach(order);
             _context.Orders.Remove(order);
-            Save();
-            return Task.CompletedTask;
+            await Save();
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
         }
 
         private bool _disposed = false;

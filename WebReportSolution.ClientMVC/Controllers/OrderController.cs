@@ -18,8 +18,8 @@ namespace WebReportSolution.ClientMVC.Controllers
     {
         private readonly OperationOrders _operationOrders;
         private readonly IMapper _mapper;
-        private GeneratingReport _generatingReport;
-        private FillingOutReport _fillingOutReport;
+        private readonly GeneratingReport _generatingReport;
+        private readonly FillingOutReport _fillingOutReport;
 
         public OrderController(OperationOrders operationOrders, IMapper mapper, GeneratingReport generatingReport, FillingOutReport fillingOutReport)
         {
@@ -83,11 +83,11 @@ namespace WebReportSolution.ClientMVC.Controllers
             return View();
         }
 
-        public IActionResult GetOrderById(Guid id)
+        public async Task<IActionResult> GetOrderById(Guid id)
         {
             try
             {
-                var orderModel = _operationOrders.GetByIdOrderAsync(id).Result;
+                var orderModel = await _operationOrders.GetByIdOrderAsync(id);
                 var model = _mapper.Map<OrderViewModel>(orderModel);
                 return View(model);
             }
@@ -98,11 +98,11 @@ namespace WebReportSolution.ClientMVC.Controllers
 
         }
 
-        public IActionResult RemoveOrder(Guid id)
+        public async Task<IActionResult> RemoveOrder(Guid id)
         {
             try
             {
-                _operationOrders.DeleteOrder(id);
+                await _operationOrders.DeleteOrder(id);
                 return RedirectToAction("GetOrders", "Order");
             }
             catch (Exception e)
@@ -123,7 +123,7 @@ namespace WebReportSolution.ClientMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult ModificationOrder(ModificationOrderViewModel orderViewModel)
+        public async Task<IActionResult> ModificationOrder(ModificationOrderViewModel orderViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -131,14 +131,14 @@ namespace WebReportSolution.ClientMVC.Controllers
                 {
                     var orderModel = _mapper.Map<Order>(orderViewModel);
 
-                    _operationOrders.CreateOrder(orderModel);
+                    await _operationOrders.CreateOrder(orderModel);
 
                     return RedirectToAction("GetOrders", "Order");
                 }
                 else
                 {
                     var orderModel = _mapper.Map<Order>(orderViewModel);
-                    _operationOrders.UpdateOrder(orderModel);
+                    await _operationOrders.UpdateOrder(orderModel);
                     return RedirectToAction("GetOrderById", "Order", new { id = orderModel.Id });
                 }
             }
